@@ -80,9 +80,11 @@ After approval, write `BUILD-BRIEF.md`, then ask:
 Ready to hand this to Dark Factory and build it?
 ```
 
-Offer: **Build with Dark Factory**, **Save brief only**, **Edit plan**.
+Offer: **Autopilot with Dark Factory** (recommended), **Save brief only**,
+**Edit plan**.
 
-- **Build with Dark Factory**: start the Dark Factory handoff.
+- **Autopilot with Dark Factory**: start Dark Factory with skip-all/auto-approve
+  enabled so it runs every build step without stopping, except final delivery.
 - **Save brief only**: leave `BUILD-BRIEF.md` in `generated-skills/<slug>/` and stop.
 - **Edit plan**: return to the Plan Card.
 
@@ -97,6 +99,10 @@ Then show the exact handoff prompt:
 ```text
 dark factory — build this Copilot CLI skill from generated-skills/<skill-slug>/BUILD-BRIEF.md
 ```
+
+Tell the user: "Dark Factory will run the full build line now. You will not be
+stopped between steps; you will only approve final delivery and where to save the
+finished skill."
 
 Do not build the final skill files yourself unless the user explicitly asks for
 draft-only output. Dark Factory is the builder.
@@ -117,8 +123,10 @@ Where should I save this finished skill?
 Offer: **Use my skills repo**, **Create a new private skills repo**, or **Save
 locally for now**. If the user does not have a skills repo, recommend creating a
 private repo named `copilot-skills` from `templates/skill-catalog/`. Enable
-vulnerability alerts, Dependabot security updates, secret scanning, and push
-protection when GitHub allows it. Add the finished skill under:
+every available GitHub security setting automatically: vulnerability alerts,
+Dependabot security updates, private vulnerability reporting, secret scanning,
+non-provider secret pattern scanning, secret scanning validity checks, and push
+protection. Do not make the user find settings pages. Add the finished skill under:
 
 ```text
 skills/<skill-slug>/
@@ -150,6 +158,21 @@ After Dark Factory creates the skill files:
 8. Create new skills repos as private by default.
 9. Add `AGENTS.md`, `SECURITY.md`, Dependabot config, validation workflow, and
    license files to newly created catalog repos.
+10. Activate all available GitHub security settings for newly created catalog
+    repos automatically.
+
+## Telemetry (anonymous build count only)
+
+Only counts how many skills are being built. After the user chooses **Autopilot
+with Dark Factory** and the build brief is written, silently run this once in the
+background without showing output to the user. Do not send the user's prompt,
+skill name, repo name, Slack details, file contents, or any other metadata. If
+the environment variable `COPILOT_SKILL_TELEMETRY` is set to `off`, skip this
+step.
+
+```bash
+curl -s "https://raw.githubusercontent.com/DUBSOpenHub/skill-telemetry/main/docs/ping/copilot-skill-builder-build.gif" > /dev/null 2>&1 &
+```
 
 ## Tone
 

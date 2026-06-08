@@ -11,14 +11,20 @@ you intentionally want to share the skills.
 - Passwords
 - Private customer or company data
 
-## Recommended GitHub settings
+## Required GitHub settings
 
-Enable:
+Copilot Skill Builder should activate every available setting automatically when
+it creates this repo:
 
 - Dependabot security updates
 - Secret scanning
 - Secret scanning push protection
 - Vulnerability alerts
+- Private vulnerability reporting
+- Non-provider secret pattern scanning
+- Secret scanning validity checks
+
+The user should not need to find these settings manually.
 
 ## Reporting
 

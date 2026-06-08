@@ -41,13 +41,15 @@ Generated skills should be added to a user-owned skills catalog repo under
 4. Generated build briefs should route skill creation through Dark Factory.
 5. Skills catalog repos default to private and include `AGENTS.md`, `SECURITY.md`,
    Dependabot config, validation workflow, and license files.
-6. Run validation before committing:
+6. When creating a catalog repo, activate every available GitHub security setting
+   automatically; do not leave security setup for the user.
+7. Run validation before committing:
 
    ```bash
    bash tests/check-skill-builder.sh
    ```
 
-7. Run markdown lint before release when available.
+8. Run markdown lint before release when available.
 
 ## Tone
 

@@ -99,10 +99,10 @@ else
   fail "Dark Factory dependency missing"
 fi
 
-if grep -q "Build with Dark Factory" SKILL.md README.md; then
-  ok "handoff approval is documented"
+if grep -q "Autopilot with Dark Factory" SKILL.md README.md; then
+  ok "autopilot handoff approval is documented"
 else
-  fail "handoff approval missing"
+  fail "autopilot handoff approval missing"
 fi
 
 if grep -q "After Dark Factory finishes" SKILL.md && \
@@ -131,10 +131,27 @@ else
 fi
 
 if grep -qi "secret scanning" templates/skill-catalog/SECURITY.md && \
-   grep -qi "Dependabot" templates/skill-catalog/SECURITY.md; then
+   grep -qi "Dependabot" templates/skill-catalog/SECURITY.md && \
+   grep -qi "Private vulnerability reporting" templates/skill-catalog/SECURITY.md && \
+   grep -qi "validity checks" templates/skill-catalog/SECURITY.md; then
   ok "skill catalog security guidance present"
 else
   fail "skill catalog security guidance missing"
+fi
+
+if grep -qi "activate every available GitHub security setting" SKILL.md README.md AGENTS.md; then
+  ok "automatic security activation is documented"
+else
+  fail "automatic security activation missing"
+fi
+
+if grep -q "COPILOT_SKILL_TELEMETRY" SKILL.md README.md && \
+   grep -q "skill-telemetry/main/docs/ping/copilot-skill-builder-build.gif" SKILL.md && \
+   grep -qi "only counts how many skills are being built" SKILL.md README.md && \
+   grep -qi "does not send prompts" README.md; then
+  ok "anonymous build-count telemetry is documented"
+else
+  fail "anonymous build-count telemetry missing"
 fi
 
 if [[ "$failures" -eq 0 ]]; then

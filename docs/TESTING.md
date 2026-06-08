@@ -24,7 +24,7 @@ All Copilot Skill Builder checks passed.
 | 1 | Run `skill builder` | Skill starts the intake flow |
 | 2 | Say `Create a helper that summarizes my assigned GitHub issues` | No more than three questions |
 | 3 | Approve the Plan Card | `BUILD-BRIEF.md` is created under `generated-skills/<slug>/` |
-| 4 | Choose `Build with Dark Factory` | Dark Factory receives the brief or the skill prints the exact Dark Factory handoff command |
+| 4 | Choose `Autopilot with Dark Factory` | Dark Factory receives the brief and runs all build steps without stopping until final delivery |
 | 5 | After Dark Factory finishes, choose catalog destination | Skill is added to an existing skills repo or the user approves creating a private one |
 
 ## Playbook 2: Start from a vague idea
@@ -54,5 +54,10 @@ All Copilot Skill Builder checks passed.
 - [ ] After Dark Factory finishes, the skill asks where to save the finished skill.
 - [ ] New skills are added under `skills/<skill-slug>/` in the user's catalog repo after build completion.
 - [ ] New catalog repos default to private and include `AGENTS.md`, `SECURITY.md`, Dependabot config, validation workflow, and license files.
+- [ ] New catalog repo setup automatically enables all available GitHub security settings.
 - [ ] One-command install installs both Copilot Skill Builder and Dark Factory.
-- [ ] After the Plan Card, the skill asks before handing off to Dark Factory.
+- [ ] After the Plan Card, the skill prompts for Autopilot with Dark Factory.
+- [ ] Autopilot runs all Dark Factory build steps without stopping until final delivery.
+- [ ] Anonymous telemetry counts only approved skill builds.
+- [ ] Telemetry sends no prompts, skill names, repo names, Slack details, file contents, or metadata.
+- [ ] Anonymous telemetry can be disabled with `COPILOT_SKILL_TELEMETRY=off`.

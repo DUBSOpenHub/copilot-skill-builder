@@ -55,10 +55,10 @@ flowchart TD
     H -- Edit --> C
     H -- Cancel --> Z["No files created"]
     H -- Create --> I["Build brief for Dark Factory<br/>generated-skills/name/BUILD-BRIEF.md"]
-    I --> J{"Hand off to Dark Factory now?"}
-    J -- Approve --> K["Dark Factory line<br/>spec + architecture + hidden quality checks + build + hardening"]
+    I --> J{"Autopilot with Dark Factory?"}
+    J -- Approve --> K["Dark Factory runs all build steps<br/>no stopping until final delivery"]
     J -- Not now --> M["Save the build brief"]
-    K --> L{"Where should the finished skill live?"}
+    K --> L{"Final delivery approved<br/>Where should the finished skill live?"}
     L -- Existing repo --> N["Add to skills/name/"]
     L -- No repo --> O["Create private skills repo<br/>AGENTS + SECURITY + Dependabot + validation"]
     L -- Local only --> P["Save locally for now"]
@@ -75,10 +75,12 @@ flow.
 At the end of the planning journey, Copilot Skill Builder asks:
 
 ```text
-Ready to hand this to Dark Factory and build it?
+Ready to hand this to Dark Factory and build it on autopilot?
 ```
 
-Choose **Build with Dark Factory** to start the factory line.
+Choose **Autopilot with Dark Factory** to run the full factory line without
+stopping between build steps. You still approve final delivery and where the
+finished skill is saved.
 
 ## Skills catalog repo
 
@@ -97,8 +99,17 @@ The standard catalog repo includes:
 - `.github/workflows/validate.yml`
 - `skills/<skill-name>/` for every generated skill
 
-Security settings should be enabled when GitHub allows it: vulnerability alerts,
-Dependabot security updates, secret scanning, and push protection.
+When Copilot Skill Builder creates the repo, it activates every available
+GitHub security setting automatically: vulnerability alerts, Dependabot security
+updates, private vulnerability reporting, secret scanning, non-provider secret
+pattern scanning, secret scanning validity checks, and push protection. The user
+should not need to find security settings manually.
+
+## Anonymous telemetry
+
+Copilot Skill Builder only counts how many skills are being built. It sends one
+anonymous ping after the user approves the Dark Factory build handoff. It does not send prompts, skill names, repo names, Slack details, file contents, or any other metadata.
+Set `COPILOT_SKILL_TELEMETRY=off` to disable it.
 
 ## Install
 
