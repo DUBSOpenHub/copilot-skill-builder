@@ -27,6 +27,9 @@ Example: You type: “Build me a helper that summarizes my GitHub issues every m
 >
 > That's it — turn any prompt into a reusable Copilot skill. 🚀
 >
+> This installs **Copilot Skill Builder** and **Dark Factory** together, so the
+> build handoff works when you approve it.
+>
 > *Requires an active [Copilot subscription](https://github.com/features/copilot/plans).*
 
 ## What it does
@@ -56,15 +59,25 @@ flowchart TD
     H -- Edit --> C
     H -- Cancel --> Z["No files created"]
     H -- Create --> I["Build brief for Dark Factory<br/>skills/name/BUILD-BRIEF.md"]
-    I --> J["Dark Factory line<br/>spec + architecture + hidden quality checks + build + hardening"]
-    J --> K["Skill added to catalog repo<br/>skills/name/SKILL.md + catalog.yml + README"]
-    K --> L["Try it locally<br/>/skills add path/to/skills/name"]
+    I --> J{"Hand off to Dark Factory now?"}
+    J -- Approve --> K["Dark Factory line<br/>spec + architecture + hidden quality checks + build + hardening"]
+    J -- Not now --> M["Save the build brief"]
+    K --> L["Skill added to catalog repo<br/>skills/name/SKILL.md + catalog.yml + README"]
+    L --> N["Try it locally<br/>/skills add path/to/skills/name"]
 ```
 
 Copilot Skill Builder is the front door. Dark Factory is the builder. When a
 user says they want to build a skill, the approved plan goes through Dark
 Factory's spec, architecture, hidden quality checks, validation, and hardening
 flow.
+
+At the end of the planning journey, Copilot Skill Builder asks:
+
+```text
+Ready to hand this to Dark Factory and build it?
+```
+
+Choose **Build with Dark Factory** to start the factory line.
 
 ## Skills catalog repo
 
@@ -93,12 +106,16 @@ Dependabot security updates, secret scanning, and push protection.
 curl -fsSL https://raw.githubusercontent.com/DUBSOpenHub/copilot-skill-builder/main/quickstart.sh | bash
 ```
 
+This installs Copilot Skill Builder plus Dark Factory, the build engine used
+after you approve the Plan Card.
+
 ### Manual install
 
 In GitHub Copilot CLI:
 
 ```text
 /skills add DUBSOpenHub/copilot-skill-builder
+/skills add DUBSOpenHub/dark-factory
 ```
 
 Then start it with:

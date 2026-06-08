@@ -25,7 +25,7 @@ All Copilot Skill Builder checks passed.
 | 2 | Say `Create a helper that summarizes my assigned GitHub issues` | No more than three questions |
 | 3 | Confirm skills repo | Existing repo is selected or a private catalog repo is planned |
 | 4 | Approve the Plan Card | `BUILD-BRIEF.md` is created under `skills/<slug>/` |
-| 5 | Continue | Dark Factory receives the brief or the skill prints the exact Dark Factory handoff command |
+| 5 | Choose `Build with Dark Factory` | Dark Factory receives the brief or the skill prints the exact Dark Factory handoff command |
 
 ## Playbook 2: Start from a vague idea
 
@@ -53,3 +53,5 @@ All Copilot Skill Builder checks passed.
 - [ ] Generated examples do not ask for secrets.
 - [ ] New skills are added under `skills/<skill-slug>/` in the user's catalog repo.
 - [ ] New catalog repos default to private and include `AGENTS.md`, `SECURITY.md`, Dependabot config, validation workflow, and license files.
+- [ ] One-command install installs both Copilot Skill Builder and Dark Factory.
+- [ ] After the Plan Card, the skill asks before handing off to Dark Factory.

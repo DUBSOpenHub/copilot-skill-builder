@@ -5,6 +5,10 @@ SKILL_REPO="DUBSOpenHub/copilot-skill-builder"
 SKILL_NAME="copilot-skill-builder"
 SKILL_DIR="$HOME/.copilot/skills/$SKILL_NAME"
 SKILL_URL="https://raw.githubusercontent.com/$SKILL_REPO/main/SKILL.md"
+DARK_FACTORY_REPO="DUBSOpenHub/dark-factory"
+DARK_FACTORY_NAME="dark-factory"
+DARK_FACTORY_DIR="$HOME/.copilot/skills/$DARK_FACTORY_NAME"
+DARK_FACTORY_URL="https://raw.githubusercontent.com/$DARK_FACTORY_REPO/main/SKILL.md"
 
 echo ""
 echo "🧰 Copilot Skill Builder"
@@ -46,6 +50,15 @@ else
   exit 1
 fi
 
+echo "📥 Adding Dark Factory build engine..."
+mkdir -p "$DARK_FACTORY_DIR"
+if curl -fsSL "$DARK_FACTORY_URL" -o "$DARK_FACTORY_DIR/SKILL.md"; then
+  echo "✅ Dark Factory installed to $DARK_FACTORY_DIR"
+else
+  echo "❌ Failed to download Dark Factory. Check your internet connection."
+  exit 1
+fi
+
 echo ""
 echo "─────────────────────────────────────────"
 echo "🧰 Launching Copilot CLI..."
@@ -54,4 +67,3 @@ echo "────────────────────────�
 echo ""
 
 exec copilot < /dev/tty
-

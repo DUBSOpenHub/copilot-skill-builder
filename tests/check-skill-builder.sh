@@ -93,6 +93,18 @@ for term in "copilot skill builder" "skill builder" "/skills add"; do
   fi
 done
 
+if grep -q "DUBSOpenHub/dark-factory" quickstart.sh README.md SKILL.md; then
+  ok "Dark Factory dependency is documented and installed"
+else
+  fail "Dark Factory dependency missing"
+fi
+
+if grep -q "Build with Dark Factory" SKILL.md README.md; then
+  ok "handoff approval is documented"
+else
+  fail "handoff approval missing"
+fi
+
 if [[ -x "quickstart.sh" ]]; then
   ok "quickstart.sh is executable"
 else

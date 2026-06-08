@@ -96,8 +96,19 @@ Ask for approval with: **Create it**, **Edit the plan**, **Cancel**.
 
 ### 4. Hand off to Dark Factory
 
-After approval, write `BUILD-BRIEF.md` and route the build to Dark Factory.
-If Dark Factory is not installed, show the exact install command:
+After approval, write `BUILD-BRIEF.md`, then ask:
+
+```text
+Ready to hand this to Dark Factory and build it?
+```
+
+Offer: **Build with Dark Factory**, **Save brief only**, **Edit plan**.
+
+- **Build with Dark Factory**: start the Dark Factory handoff.
+- **Save brief only**: leave `BUILD-BRIEF.md` in the skills catalog repo and stop.
+- **Edit plan**: return to the Plan Card.
+
+If Dark Factory is not installed, offer to install it and show the exact command:
 
 ```text
 /skills add DUBSOpenHub/dark-factory
