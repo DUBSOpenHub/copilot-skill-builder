@@ -50,20 +50,21 @@ Dark Factory builds the complete skill folder with:
 flowchart TD
     A["Your prompt<br/>I want a helper that does X"] --> B["Copilot Skill Builder"]
     B --> C["At most 3 simple questions"]
-    C --> D{"Do you have a skills repo?"}
-    D -- No --> E["Create private skills repo<br/>AGENTS + SECURITY + Dependabot + validation"]
-    D -- Yes --> F["Use existing skills repo"]
-    E --> G["Plan Card<br/>name, trigger, output, repo path"]
-    F --> G
+    C --> G["Plan Card<br/>name, trigger, output"]
     G --> H{"Create it?"}
     H -- Edit --> C
     H -- Cancel --> Z["No files created"]
-    H -- Create --> I["Build brief for Dark Factory<br/>skills/name/BUILD-BRIEF.md"]
+    H -- Create --> I["Build brief for Dark Factory<br/>generated-skills/name/BUILD-BRIEF.md"]
     I --> J{"Hand off to Dark Factory now?"}
     J -- Approve --> K["Dark Factory line<br/>spec + architecture + hidden quality checks + build + hardening"]
     J -- Not now --> M["Save the build brief"]
-    K --> L["Skill added to catalog repo<br/>skills/name/SKILL.md + catalog.yml + README"]
-    L --> N["Try it locally<br/>/skills add path/to/skills/name"]
+    K --> L{"Where should the finished skill live?"}
+    L -- Existing repo --> N["Add to skills/name/"]
+    L -- No repo --> O["Create private skills repo<br/>AGENTS + SECURITY + Dependabot + validation"]
+    L -- Local only --> P["Save locally for now"]
+    O --> N
+    N --> Q["Try it locally<br/>/skills add path/to/skills/name"]
+    P --> Q
 ```
 
 Copilot Skill Builder is the front door. Dark Factory is the builder. When a
@@ -81,9 +82,10 @@ Choose **Build with Dark Factory** to start the factory line.
 
 ## Skills catalog repo
 
-Copilot Skill Builder assumes users should keep their skills together in one
-repo. If they do not already have one, it offers to create a **private** skills
-catalog repo by default.
+Copilot Skill Builder assumes users should keep their finished skills together
+in one repo. After Dark Factory finishes building, it asks where to save the
+skill. If the user does not already have a skills repo, it offers to create a
+**private** skills catalog repo by default.
 
 The standard catalog repo includes:
 
@@ -149,9 +151,9 @@ Your new helper: Morning Issue Digest
 Trigger: "morning digest"
 What it does: Summarizes GitHub issues assigned to you.
 What it uses: GitHub CLI
-Where it will be saved: copilot-skills/skills/morning-issue-digest/
-How to try it: /skills add copilot-skills/skills/morning-issue-digest
-How to remove it: delete copilot-skills/skills/morning-issue-digest
+Where the brief will be saved: generated-skills/morning-issue-digest/BUILD-BRIEF.md
+How it gets built: Dark Factory
+Where the finished skill goes: your skills repo after the build
 ```
 
 After approval, Copilot Skill Builder hands the plan to Dark Factory, and Dark

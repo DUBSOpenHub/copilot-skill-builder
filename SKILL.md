@@ -28,32 +28,15 @@ Make the user feel like a builder fast:
 2. Ask at most three plain-language questions.
 3. Ask where their skills should live.
 4. Show a short Plan Card.
-5. Create a Dark Factory build brief inside their skills catalog repo.
+5. Create a Dark Factory build brief.
 6. Hand the approved brief to Dark Factory for the actual skill build.
 
-## Skill catalog repo
+## Default output
 
-Most users will not have a dedicated skills repo yet. Ask once:
-
-```text
-Where should I keep your Copilot skills?
-```
-
-Offer: **Create a new private skills repo** (recommended), **Use an existing
-repo**, or **Skip repo setup for now**. Default to a **private** repo named
-`copilot-skills`. If creating it, use `templates/skill-catalog/` and enable
-vulnerability alerts, Dependabot security updates, secret scanning, and push
-protection when GitHub allows it. Every skill goes under:
+Before the build, create the Dark Factory build brief under:
 
 ```text
-skills/<skill-slug>/
-```
-
-If repo setup is skipped, use a local `skills/<skill-slug>/` folder. Create the
-Dark Factory build brief under:
-
-```text
-<skills-catalog-repo>/skills/<skill-slug>/BUILD-BRIEF.md
+generated-skills/<skill-slug>/BUILD-BRIEF.md
 ```
 
 Dark Factory produces the final skill folder: `SKILL.md`, `catalog.yml`,
@@ -73,12 +56,7 @@ only what is needed, with a hard cap of three questions:
 
 If the idea is already clear, ask zero questions.
 
-### 2. Skill catalog check
-
-Ask if the user has a Copilot skills repo. If not, offer to create a private one
-from the standard template. Do not default to public.
-
-### 3. Plan Card
+### 2. Plan Card
 
 Before creating files, show a Plan Card of seven lines or fewer:
 
@@ -87,14 +65,14 @@ Your new helper: <name>
 Trigger: "<trigger phrase>"
 What it does: <one sentence>
 What it uses: <tools or sources>
-Where it will be saved: <skills-catalog-repo>/skills/<slug>/
-How to try it: /skills add <skills-catalog-repo>/skills/<slug>
-How to remove it: delete <skills-catalog-repo>/skills/<slug>
+Where the brief will be saved: generated-skills/<slug>/BUILD-BRIEF.md
+How it gets built: Dark Factory
+Where the finished skill goes: your skills repo after the build
 ```
 
 Ask for approval with: **Create it**, **Edit the plan**, **Cancel**.
 
-### 4. Hand off to Dark Factory
+### 3. Hand off to Dark Factory
 
 After approval, write `BUILD-BRIEF.md`, then ask:
 
@@ -105,7 +83,7 @@ Ready to hand this to Dark Factory and build it?
 Offer: **Build with Dark Factory**, **Save brief only**, **Edit plan**.
 
 - **Build with Dark Factory**: start the Dark Factory handoff.
-- **Save brief only**: leave `BUILD-BRIEF.md` in the skills catalog repo and stop.
+- **Save brief only**: leave `BUILD-BRIEF.md` in `generated-skills/<slug>/` and stop.
 - **Edit plan**: return to the Plan Card.
 
 If Dark Factory is not installed, offer to install it and show the exact command:
@@ -117,7 +95,7 @@ If Dark Factory is not installed, offer to install it and show the exact command
 Then show the exact handoff prompt:
 
 ```text
-dark factory — build this Copilot CLI skill from <skills-catalog-repo>/skills/<skill-slug>/BUILD-BRIEF.md
+dark factory — build this Copilot CLI skill from generated-skills/<skill-slug>/BUILD-BRIEF.md
 ```
 
 Do not build the final skill files yourself unless the user explicitly asks for
@@ -127,6 +105,27 @@ Final skill requirements for Dark Factory: valid `SKILL.md` frontmatter, concise
 description, only needed tools, no secrets or destructive defaults, `catalog.yml`
 referencing `SKILL.md`, README install/try/customize/remove docs, and
 `WHAT_WAS_BUILT.md` with What, Where, Trigger, Remove, and Known limits.
+
+### 4. Add the finished skill to the user's catalog
+
+After Dark Factory finishes, ask:
+
+```text
+Where should I save this finished skill?
+```
+
+Offer: **Use my skills repo**, **Create a new private skills repo**, or **Save
+locally for now**. If the user does not have a skills repo, recommend creating a
+private repo named `copilot-skills` from `templates/skill-catalog/`. Enable
+vulnerability alerts, Dependabot security updates, secret scanning, and push
+protection when GitHub allows it. Add the finished skill under:
+
+```text
+skills/<skill-slug>/
+```
+
+Do not default to public. Ask for approval before creating the repo or copying
+the finished skill.
 
 ### 5. Verify
 

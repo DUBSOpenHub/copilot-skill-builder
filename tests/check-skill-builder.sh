@@ -105,6 +105,13 @@ else
   fail "handoff approval missing"
 fi
 
+if grep -q "After Dark Factory finishes" SKILL.md && \
+   grep -q "Where should I save this finished skill" SKILL.md; then
+  ok "post-build catalog placement is documented"
+else
+  fail "post-build catalog placement missing"
+fi
+
 if [[ -x "quickstart.sh" ]]; then
   ok "quickstart.sh is executable"
 else
