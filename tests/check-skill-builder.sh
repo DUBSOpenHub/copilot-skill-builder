@@ -29,6 +29,11 @@ check_file "catalog.yml"
 check_file "config.yml"
 check_file "README.md"
 check_file "docs/TESTING.md"
+check_file "AGENTS.md"
+check_file "SECURITY.md"
+check_file "LICENSE"
+check_file "quickstart.sh"
+check_file ".github/dependabot.yml"
 
 if python3 - <<'PY'
 import yaml
@@ -81,6 +86,18 @@ for term in "copilot skill builder" "skill builder" "/skills add"; do
   fi
 done
 
+if [[ -x "quickstart.sh" ]]; then
+  ok "quickstart.sh is executable"
+else
+  fail "quickstart.sh is not executable"
+fi
+
+if grep -q "MIT License" LICENSE && grep -q "MIT" catalog.yml; then
+  ok "MIT license is present and referenced"
+else
+  fail "MIT license missing or not referenced"
+fi
+
 if [[ "$failures" -eq 0 ]]; then
   echo
   echo "All Copilot Skill Builder checks passed."
@@ -90,4 +107,3 @@ fi
 echo
 echo "$failures check(s) failed."
 exit 1
-
