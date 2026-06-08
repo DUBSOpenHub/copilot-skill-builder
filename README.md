@@ -1,4 +1,4 @@
-# Copilot Skill Builder
+🧰 # Copilot Skill Builder
 
 Copilot Skill Builder turns "I want a helper that does X" into a ready-to-review
 GitHub Copilot CLI skill.
