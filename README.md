@@ -3,8 +3,8 @@
 Copilot Skill Builder turns "I want a helper that does X" into a ready-to-review
 GitHub Copilot CLI skill.
 
-It is the friendly front door for people who know what they want to create, but
-do not want to learn skill structure, prompt files, YAML, repo wiring, or setup
+It is the user friendly front door for people who know what they want to create, but
+might not know what the skill structure, prompt files, YAML, repo wiring, or setup
 steps first.
 
 ## What it does
