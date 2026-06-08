@@ -32,9 +32,9 @@ Example: You type: “Build me a helper that summarizes my GitHub issues every m
 ## What it does
 
 You describe the helper you want with any prompt. Copilot Skill Builder asks at most
-three simple questions, shows a short plan, then sends the approved plan to
-[Dark Factory](https://github.com/DUBSOpenHub/dark-factory). Dark Factory builds
-the complete skill folder with:
+three simple questions, asks where your skills should live, shows a short plan,
+then sends the approved plan to [Dark Factory](https://github.com/DUBSOpenHub/dark-factory).
+Dark Factory builds the complete skill folder with:
 
 - `SKILL.md`
 - `catalog.yml`
@@ -47,20 +47,43 @@ the complete skill folder with:
 flowchart TD
     A["Your prompt<br/>I want a helper that does X"] --> B["Copilot Skill Builder"]
     B --> C["At most 3 simple questions"]
-    C --> D["Plan Card<br/>name, trigger, output, install path"]
-    D --> E{"Create it?"}
-    E -- Edit --> C
-    E -- Cancel --> Z["No files created"]
-    E -- Create --> F["Build brief for Dark Factory"]
-    F --> G["Dark Factory line<br/>spec + architecture + hidden quality checks + build + hardening"]
-    G --> H["Generated skill folder<br/>SKILL.md + catalog.yml + README + WHAT_WAS_BUILT.md"]
-    H --> I["Try it locally<br/>/skills add generated-skills/name"]
+    C --> D{"Do you have a skills repo?"}
+    D -- No --> E["Create private skills repo<br/>AGENTS + SECURITY + Dependabot + validation"]
+    D -- Yes --> F["Use existing skills repo"]
+    E --> G["Plan Card<br/>name, trigger, output, repo path"]
+    F --> G
+    G --> H{"Create it?"}
+    H -- Edit --> C
+    H -- Cancel --> Z["No files created"]
+    H -- Create --> I["Build brief for Dark Factory<br/>skills/name/BUILD-BRIEF.md"]
+    I --> J["Dark Factory line<br/>spec + architecture + hidden quality checks + build + hardening"]
+    J --> K["Skill added to catalog repo<br/>skills/name/SKILL.md + catalog.yml + README"]
+    K --> L["Try it locally<br/>/skills add path/to/skills/name"]
 ```
 
 Copilot Skill Builder is the front door. Dark Factory is the builder. When a
 user says they want to build a skill, the approved plan goes through Dark
 Factory's spec, architecture, hidden quality checks, validation, and hardening
 flow.
+
+## Skills catalog repo
+
+Copilot Skill Builder assumes users should keep their skills together in one
+repo. If they do not already have one, it offers to create a **private** skills
+catalog repo by default.
+
+The standard catalog repo includes:
+
+- `README.md`
+- `AGENTS.md`
+- `SECURITY.md`
+- `LICENSE`
+- `.github/dependabot.yml`
+- `.github/workflows/validate.yml`
+- `skills/<skill-name>/` for every generated skill
+
+Security settings should be enabled when GitHub allows it: vulnerability alerts,
+Dependabot security updates, secret scanning, and push protection.
 
 ## Install
 
@@ -109,9 +132,9 @@ Your new helper: Morning Issue Digest
 Trigger: "morning digest"
 What it does: Summarizes GitHub issues assigned to you.
 What it uses: GitHub CLI
-Where it will be saved: generated-skills/morning-issue-digest/
-How to try it: /skills add generated-skills/morning-issue-digest
-How to remove it: delete generated-skills/morning-issue-digest
+Where it will be saved: copilot-skills/skills/morning-issue-digest/
+How to try it: /skills add copilot-skills/skills/morning-issue-digest
+How to remove it: delete copilot-skills/skills/morning-issue-digest
 ```
 
 After approval, Copilot Skill Builder hands the plan to Dark Factory, and Dark

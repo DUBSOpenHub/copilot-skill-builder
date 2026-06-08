@@ -1,15 +1,26 @@
 skill_builder:
   max_questions: 3
-  default_output_dir: generated-skills
+  default_output_dir: skills
   max_plan_card_lines: 7
   default_artifact_type: copilot_cli_skill
+  default_catalog_repo_name: copilot-skills
+  default_catalog_visibility: private
+  catalog_template_dir: templates/skill-catalog
   generated_files:
+    - BUILD-BRIEF.md
     - SKILL.md
     - catalog.yml
     - README.md
     - WHAT_WAS_BUILT.md
+  catalog_required_files:
+    - README.md
+    - AGENTS.md
+    - SECURITY.md
+    - LICENSE
+    - .gitignore
+    - .github/dependabot.yml
+    - .github/workflows/validate.yml
   starter_patterns:
     - fetch_and_summarize
     - repo_scanner
     - text_transformer
-

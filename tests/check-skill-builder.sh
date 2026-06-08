@@ -34,6 +34,13 @@ check_file "SECURITY.md"
 check_file "LICENSE"
 check_file "quickstart.sh"
 check_file ".github/dependabot.yml"
+check_file "templates/skill-catalog/README.md"
+check_file "templates/skill-catalog/AGENTS.md"
+check_file "templates/skill-catalog/SECURITY.md"
+check_file "templates/skill-catalog/LICENSE"
+check_file "templates/skill-catalog/.github/dependabot.yml"
+check_file "templates/skill-catalog/.github/workflows/validate.yml"
+check_file "templates/skill-catalog/tests/validate-skills.sh"
 
 if python3 - <<'PY'
 import yaml
@@ -96,6 +103,19 @@ if grep -q "MIT License" LICENSE && grep -q "MIT" catalog.yml; then
   ok "MIT license is present and referenced"
 else
   fail "MIT license missing or not referenced"
+fi
+
+if grep -q "default_catalog_visibility: private" config.yml; then
+  ok "skill catalog defaults to private"
+else
+  fail "skill catalog does not default to private"
+fi
+
+if grep -qi "secret scanning" templates/skill-catalog/SECURITY.md && \
+   grep -qi "Dependabot" templates/skill-catalog/SECURITY.md; then
+  ok "skill catalog security guidance present"
+else
+  fail "skill catalog security guidance missing"
 fi
 
 if [[ "$failures" -eq 0 ]]; then

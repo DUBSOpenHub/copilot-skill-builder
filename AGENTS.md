@@ -10,6 +10,7 @@ SKILL.md                  Runtime skill prompt
 catalog.yml               Skill metadata
 config.yml                Skill Builder defaults
 quickstart.sh             One-command installer
+templates/skill-catalog   Standard private skills repo template
 tests/check-skill-builder.sh
 docs/TESTING.md
 ```
@@ -17,6 +18,8 @@ docs/TESTING.md
 There are no sub-agents, services, package managers, dashboards, or background
 processes. Keep it prompt-only and beginner-friendly. Dark Factory is the build
 engine for the final skill; Copilot Skill Builder is the intake layer.
+Generated skills should be added to a user-owned skills catalog repo under
+`skills/<skill-slug>/`.
 
 ## Change rules
 
@@ -27,6 +30,7 @@ engine for the final skill; Copilot Skill Builder is the intake layer.
 | `config.yml` | Defaults | Do not hardcode values in `SKILL.md` that belong here |
 | `README.md` | Product story | Keep the one-command install and credits current |
 | `quickstart.sh` | Installer | Keep safe, readable, and idempotent |
+| `templates/skill-catalog/` | Standard catalog repo template | Keep private-by-default and security-focused |
 | `tests/check-skill-builder.sh` | Static checks | Update when required files or metadata change |
 
 ## Non-negotiables
@@ -35,13 +39,15 @@ engine for the final skill; Copilot Skill Builder is the intake layer.
 2. Never ask users to paste secrets, tokens, or credentials.
 3. Do not add dashboards, daemons, package managers, hosted services, or plugin systems.
 4. Generated build briefs should route skill creation through Dark Factory.
-5. Run validation before committing:
+5. Skills catalog repos default to private and include `AGENTS.md`, `SECURITY.md`,
+   Dependabot config, validation workflow, and license files.
+6. Run validation before committing:
 
    ```bash
    bash tests/check-skill-builder.sh
    ```
 
-6. Run markdown lint before release when available.
+7. Run markdown lint before release when available.
 
 ## Tone
 

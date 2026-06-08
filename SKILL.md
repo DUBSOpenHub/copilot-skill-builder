@@ -26,28 +26,39 @@ Make the user feel like a builder fast:
 
 1. Understand the outcome they want.
 2. Ask at most three plain-language questions.
-3. Show a short Plan Card.
-4. Create a Dark Factory build brief.
-5. Hand the approved brief to Dark Factory for the actual skill build.
+3. Ask where their skills should live.
+4. Show a short Plan Card.
+5. Create a Dark Factory build brief inside their skills catalog repo.
+6. Hand the approved brief to Dark Factory for the actual skill build.
 
-## Default output
+## Skill catalog repo
 
-Unless the user gives a different path, create the Dark Factory build brief under:
+Most users will not have a dedicated skills repo yet. Ask once:
 
 ```text
-generated-skills/<skill-slug>/BUILD-BRIEF.md
+Where should I keep your Copilot skills?
 ```
 
-Dark Factory is responsible for producing the final skill folder. The final
-skill should include:
+Offer: **Create a new private skills repo** (recommended), **Use an existing
+repo**, or **Skip repo setup for now**. Default to a **private** repo named
+`copilot-skills`. If creating it, use `templates/skill-catalog/` and enable
+vulnerability alerts, Dependabot security updates, secret scanning, and push
+protection when GitHub allows it. Every skill goes under:
 
-- `SKILL.md`
-- `catalog.yml`
-- `README.md`
-- `WHAT_WAS_BUILT.md`
+```text
+skills/<skill-slug>/
+```
 
-Do not add runtime code, package managers, background services, dashboards, or
-plugin systems. The MVP output is a prompt-only Copilot CLI skill.
+If repo setup is skipped, use a local `skills/<skill-slug>/` folder. Create the
+Dark Factory build brief under:
+
+```text
+<skills-catalog-repo>/skills/<skill-slug>/BUILD-BRIEF.md
+```
+
+Dark Factory produces the final skill folder: `SKILL.md`, `catalog.yml`,
+`README.md`, and `WHAT_WAS_BUILT.md`. Do not add runtime code, package managers,
+background services, dashboards, or plugin systems.
 
 ## Flow
 
@@ -62,7 +73,12 @@ only what is needed, with a hard cap of three questions:
 
 If the idea is already clear, ask zero questions.
 
-### 2. Plan Card
+### 2. Skill catalog check
+
+Ask if the user has a Copilot skills repo. If not, offer to create a private one
+from the standard template. Do not default to public.
+
+### 3. Plan Card
 
 Before creating files, show a Plan Card of seven lines or fewer:
 
@@ -71,14 +87,14 @@ Your new helper: <name>
 Trigger: "<trigger phrase>"
 What it does: <one sentence>
 What it uses: <tools or sources>
-Where it will be saved: generated-skills/<slug>/
-How to try it: /skills add generated-skills/<slug>
-How to remove it: delete generated-skills/<slug>
+Where it will be saved: <skills-catalog-repo>/skills/<slug>/
+How to try it: /skills add <skills-catalog-repo>/skills/<slug>
+How to remove it: delete <skills-catalog-repo>/skills/<slug>
 ```
 
 Ask for approval with: **Create it**, **Edit the plan**, **Cancel**.
 
-### 3. Hand off to Dark Factory
+### 4. Hand off to Dark Factory
 
 After approval, write `BUILD-BRIEF.md` and route the build to Dark Factory.
 If Dark Factory is not installed, show the exact install command:
@@ -90,40 +106,18 @@ If Dark Factory is not installed, show the exact install command:
 Then show the exact handoff prompt:
 
 ```text
-dark factory — build this Copilot CLI skill from generated-skills/<skill-slug>/BUILD-BRIEF.md
+dark factory — build this Copilot CLI skill from <skills-catalog-repo>/skills/<skill-slug>/BUILD-BRIEF.md
 ```
 
 Do not build the final skill files yourself unless the user explicitly asks for
 draft-only output. Dark Factory is the builder.
 
-`SKILL.md` must:
+Final skill requirements for Dark Factory: valid `SKILL.md` frontmatter, concise
+description, only needed tools, no secrets or destructive defaults, `catalog.yml`
+referencing `SKILL.md`, README install/try/customize/remove docs, and
+`WHAT_WAS_BUILT.md` with What, Where, Trigger, Remove, and Known limits.
 
-- Include valid YAML frontmatter.
-- Use a short, action-oriented name.
-- Include a concise description.
-- List only tools the skill truly needs.
-- Explain role, inputs, output, and rules.
-- Avoid secrets, tokens, destructive commands, and hidden network assumptions.
-
-`catalog.yml` must reference `SKILL.md`.
-
-`README.md` must explain:
-
-- What the skill does.
-- How to install it.
-- How to try it.
-- How to customize it.
-- How to remove it.
-
-`WHAT_WAS_BUILT.md` must include:
-
-- What
-- Where
-- Trigger
-- Remove
-- Known limits
-
-### 4. Verify
+### 5. Verify
 
 After Dark Factory creates the skill files:
 
@@ -131,6 +125,8 @@ After Dark Factory creates the skill files:
 2. Confirm referenced files exist.
 3. Confirm the generated skill has frontmatter.
 4. Report what was created and the exact try-it-now command.
+5. Confirm the skill was added under `skills/<skill-slug>/` in the user's
+   skills catalog repo or local fallback folder.
 
 ## Safety rules
 
@@ -141,6 +137,9 @@ After Dark Factory creates the skill files:
 5. Prefer read-only behavior unless the user clearly asks for writing changes.
 6. Keep generated prompts short enough to review.
 7. If the request is too large, narrow it to one useful first skill.
+8. Create new skills repos as private by default.
+9. Add `AGENTS.md`, `SECURITY.md`, Dependabot config, validation workflow, and
+   license files to newly created catalog repos.
 
 ## Tone
 
