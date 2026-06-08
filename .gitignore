@@ -1,0 +1,5 @@
+.DS_Store
+generated-skills/
+node_modules/
+.markdownlint-cli2.jsonc
+

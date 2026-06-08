@@ -1,0 +1,15 @@
+skill_builder:
+  max_questions: 3
+  default_output_dir: generated-skills
+  max_plan_card_lines: 7
+  default_artifact_type: copilot_cli_skill
+  generated_files:
+    - SKILL.md
+    - catalog.yml
+    - README.md
+    - WHAT_WAS_BUILT.md
+  starter_patterns:
+    - fetch_and_summarize
+    - repo_scanner
+    - text_transformer
+

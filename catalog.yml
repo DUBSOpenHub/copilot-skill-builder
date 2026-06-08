@@ -1,0 +1,22 @@
+schema_version: "1"
+id: copilot-skill-builder
+name: Copilot Skill Builder
+description: >
+  Turns a plain-English idea into a ready-to-review GitHub Copilot CLI skill.
+  Say "copilot skill builder" or "skill builder" to start.
+emoji: ":hammer:"
+category: builder
+version: "0.1.0"
+tags:
+  - copilot-cli
+  - skills
+  - builder
+  - onboarding
+platforms:
+  - copilot-cli
+input_format: free-text
+links:
+  skill_file: SKILL.md
+license: MIT
+owner: DUBSOpenHub
+

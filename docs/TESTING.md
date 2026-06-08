@@ -1,0 +1,51 @@
+# Testing Copilot Skill Builder
+
+Copilot Skill Builder is a prompt-only GitHub Copilot CLI skill, so testing is
+mostly static validation plus conversation playbooks.
+
+## Static validation
+
+Run:
+
+```bash
+bash tests/check-skill-builder.sh
+```
+
+Expected result:
+
+```text
+All Copilot Skill Builder checks passed.
+```
+
+## Playbook 1: Start from a clear idea
+
+| Step | User action | Expected result |
+|---|---|---|
+| 1 | Run `skill builder` | Skill starts the intake flow |
+| 2 | Say `Create a helper that summarizes my assigned GitHub issues` | No more than three questions |
+| 3 | Approve the Plan Card | Files are created under `generated-skills/<slug>/` |
+| 4 | Inspect output | `SKILL.md`, `catalog.yml`, `README.md`, and `WHAT_WAS_BUILT.md` exist |
+
+## Playbook 2: Start from a vague idea
+
+| Step | User action | Expected result |
+|---|---|---|
+| 1 | Run `skill builder` | Skill starts the intake flow |
+| 2 | Say `Make something useful for my repo` | Skill asks clarifying questions |
+| 3 | Answer questions | Skill stops at three questions or fewer |
+| 4 | Approve the Plan Card | Skill scaffold is created |
+
+## Playbook 3: Cancel before creation
+
+| Step | User action | Expected result |
+|---|---|---|
+| 1 | Run `skill builder` | Plan Card is generated |
+| 2 | Choose cancel | No generated skill files are created |
+
+## Release checklist
+
+- [ ] `bash tests/check-skill-builder.sh` passes.
+- [ ] `SKILL.md` has valid frontmatter.
+- [ ] `catalog.yml` references existing files.
+- [ ] README includes install and try-it instructions.
+- [ ] Generated examples do not ask for secrets.

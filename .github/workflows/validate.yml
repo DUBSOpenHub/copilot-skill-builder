@@ -1,0 +1,57 @@
+name: Validate Copilot Skill Builder
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install Python dependencies
+        run: python -m pip install pyyaml
+
+      - name: Static validation
+        run: bash tests/check-skill-builder.sh
+
+      - name: Markdown lint
+        run: |
+          npm install -g markdownlint-cli2
+          cat > .markdownlint-cli2.jsonc <<'JSON'
+          {
+            "config": {
+              "default": true,
+              "MD013": false,
+              "MD022": false,
+              "MD024": false,
+              "MD025": false,
+              "MD029": false,
+              "MD031": false,
+              "MD032": false,
+              "MD033": false,
+              "MD036": false,
+              "MD040": false,
+              "MD041": false,
+              "MD056": false,
+              "MD058": false,
+              "MD060": false
+            },
+            "globs": ["**/*.md"],
+            "ignores": ["**/node_modules/**"]
+          }
+          JSON
+          markdownlint-cli2
+
