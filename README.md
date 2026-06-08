@@ -2,9 +2,11 @@
 
 Turn any prompt into a ready-to-review GitHub Copilot CLI skill.
 
-It is the user-friendly front door for people who know what they want to create,
-but do not want to learn skill structure, prompt files, YAML, repo wiring, or
-setup steps first.
+Many people can describe what they want an AI assistant to do, but they might not know how to package that idea into something reusable. They may not know the prompts, YAML, repo structure, install steps, or skill design. So their ideas stay trapped in one-off chats.
+
+Copilot Skill Builder changes that. It turns any prompt into a ready-to-review GitHub Copilot CLI skill.
+
+Example: You type: “Build me a helper that summarizes my GitHub issues every morning.” It asks a few simple questions, shows a short plan, and generates a ready-to-review GitHub Copilot CLI skill with install instructions, docs, and a try-it-now command.
 
 ## What it does
 
