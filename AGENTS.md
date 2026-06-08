@@ -1,7 +1,7 @@
 # AGENTS.md — Working Guide for AI Agents
 
 This repo contains **Copilot Skill Builder**, a single GitHub Copilot CLI skill
-that turns any prompt into a ready-to-review Copilot CLI skill scaffold.
+that turns any prompt into a Dark Factory-ready plan for a Copilot CLI skill.
 
 ## Architecture
 
@@ -15,7 +15,8 @@ docs/TESTING.md
 ```
 
 There are no sub-agents, services, package managers, dashboards, or background
-processes. Keep it prompt-only and beginner-friendly.
+processes. Keep it prompt-only and beginner-friendly. Dark Factory is the build
+engine for the final skill; Copilot Skill Builder is the intake layer.
 
 ## Change rules
 
@@ -33,7 +34,7 @@ processes. Keep it prompt-only and beginner-friendly.
 1. Keep the skill understandable to non-technical users.
 2. Never ask users to paste secrets, tokens, or credentials.
 3. Do not add dashboards, daemons, package managers, hosted services, or plugin systems.
-4. Generated skills should be prompt-only unless the user explicitly asks for more.
+4. Generated build briefs should route skill creation through Dark Factory.
 5. Run validation before committing:
 
    ```bash

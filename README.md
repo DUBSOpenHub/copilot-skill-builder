@@ -9,7 +9,7 @@ Many people can describe what they want an AI assistant to do, but they might no
 
 Copilot Skill Builder changes that. It turns any prompt into a ready-to-review GitHub Copilot CLI skill.
 
-Example: You type: “Build me a helper that summarizes my GitHub issues every morning.” It asks a few simple questions, shows a short plan, and generates a ready-to-review GitHub Copilot CLI skill with install instructions, docs, and a try-it-now command.
+Example: You type: “Build me a helper that summarizes my GitHub issues every morning.” It asks a few simple questions, shows a short plan, then hands the approved build brief to Dark Factory so the skill is created through the factory line.
 
 > **⚡ One Command. That's It**
 >
@@ -32,8 +32,9 @@ Example: You type: “Build me a helper that summarizes my GitHub issues every m
 ## What it does
 
 You describe the helper you want with any prompt. Copilot Skill Builder asks at most
-three simple questions, shows a short plan, then creates a complete skill folder
-with:
+three simple questions, shows a short plan, then sends the approved plan to
+[Dark Factory](https://github.com/DUBSOpenHub/dark-factory). Dark Factory builds
+the complete skill folder with:
 
 - `SKILL.md`
 - `catalog.yml`
@@ -50,14 +51,16 @@ flowchart TD
     D --> E{"Create it?"}
     E -- Edit --> C
     E -- Cancel --> Z["No files created"]
-    E -- Create --> F["Generated skill folder<br/>SKILL.md + catalog.yml + README + WHAT_WAS_BUILT.md"]
-    F --> G["Try it locally<br/>/skills add generated-skills/name"]
-    G --> H["Optional next step<br/>Send it through Dark Factory for sealed quality checks"]
+    E -- Create --> F["Build brief for Dark Factory"]
+    F --> G["Dark Factory line<br/>spec + architecture + hidden quality checks + build + hardening"]
+    G --> H["Generated skill folder<br/>SKILL.md + catalog.yml + README + WHAT_WAS_BUILT.md"]
+    H --> I["Try it locally<br/>/skills add generated-skills/name"]
 ```
 
-Copilot Skill Builder creates the first working skill scaffold. Dark Factory is
-the next step when you want a production-grade build line with spec,
-architecture, hidden quality checks, validation, and hardening.
+Copilot Skill Builder is the front door. Dark Factory is the builder. When a
+user says they want to build a skill, the approved plan goes through Dark
+Factory's spec, architecture, hidden quality checks, validation, and hardening
+flow.
 
 ## Install
 
@@ -111,7 +114,8 @@ How to try it: /skills add generated-skills/morning-issue-digest
 How to remove it: delete generated-skills/morning-issue-digest
 ```
 
-After approval, it creates the skill files for you.
+After approval, Copilot Skill Builder hands the plan to Dark Factory, and Dark
+Factory creates the skill files for you.
 
 ## Why this exists
 
@@ -123,7 +127,17 @@ Copilot Skill Builder bridges that gap.
 
 ## Built by Dark Factory
 
-Copilot Skill Builder was built with [Dark Factory](https://github.com/DUBSOpenHub/dark-factory), the sealed-envelope Copilot CLI build system. Dark Factory turned the product idea into a tested skill repo using its factory line: spec, architecture, hidden quality checks, implementation, validation, and hardening.
+Copilot Skill Builder was built with [Dark Factory](https://github.com/DUBSOpenHub/dark-factory), the sealed-envelope Copilot CLI build system.
+
+It also uses the same pattern for users: Copilot Skill Builder shapes the prompt,
+then Dark Factory builds the skill through its full line:
+
+```text
+Prompt → Plan Card → Dark Factory → Spec → Architecture → Hidden quality checks → Build → Validate → Harden → Skill
+```
+
+That means this repo is both a skill builder and a proof point: Dark Factory can
+build real Copilot skills end-to-end.
 
 ## What it does not do
 

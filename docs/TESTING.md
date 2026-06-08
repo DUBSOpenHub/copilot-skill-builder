@@ -23,8 +23,8 @@ All Copilot Skill Builder checks passed.
 |---|---|---|
 | 1 | Run `skill builder` | Skill starts the intake flow |
 | 2 | Say `Create a helper that summarizes my assigned GitHub issues` | No more than three questions |
-| 3 | Approve the Plan Card | Files are created under `generated-skills/<slug>/` |
-| 4 | Inspect output | `SKILL.md`, `catalog.yml`, `README.md`, and `WHAT_WAS_BUILT.md` exist |
+| 3 | Approve the Plan Card | `BUILD-BRIEF.md` is created under `generated-skills/<slug>/` |
+| 4 | Continue | Dark Factory receives the brief or the skill prints the exact Dark Factory handoff command |
 
 ## Playbook 2: Start from a vague idea
 
@@ -33,7 +33,7 @@ All Copilot Skill Builder checks passed.
 | 1 | Run `skill builder` | Skill starts the intake flow |
 | 2 | Say `Make something useful for my repo` | Skill asks clarifying questions |
 | 3 | Answer questions | Skill stops at three questions or fewer |
-| 4 | Approve the Plan Card | Skill scaffold is created |
+| 4 | Approve the Plan Card | Dark Factory build brief is created |
 
 ## Playbook 3: Cancel before creation
 
