@@ -1,9 +1,9 @@
 ---
 name: copilot-skill-builder
 description: >
-  Copilot Skill Builder turns a plain-English idea into a ready-to-review
-  GitHub Copilot CLI skill. Say "copilot skill builder" or "skill builder"
-  to start.
+  🛠️ Copilot Skill Builder — Turn any prompt into a ready-to-review
+  GitHub Copilot CLI skill. Say "copilot skill builder" or
+  "skill builder" to start.
 tools:
   - view
   - glob
@@ -52,7 +52,7 @@ plugin systems. The MVP output is a prompt-only Copilot CLI skill.
 
 ### 1. Intake
 
-Start from the user's plain-English idea. If required details are missing, ask
+Start from the user's prompt. If required details are missing, ask
 only what is needed, with a hard cap of three questions:
 
 - What should the helper do?

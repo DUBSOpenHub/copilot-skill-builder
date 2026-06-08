@@ -1,7 +1,6 @@
-🧰 # Copilot Skill Builder
+# 🧰 Copilot Skill Builder
 
-Copilot Skill Builder turns "I want a helper that does X" into a ready-to-review
-GitHub Copilot CLI skill.
+Turn any prompt into a ready-to-review GitHub Copilot CLI skill.
 
 It is the user friendly front door for people who know what they want to create, but
 might not know what the skill structure, prompt files, YAML, repo wiring, or setup
@@ -9,7 +8,7 @@ steps first.
 
 ## What it does
 
-You describe a useful helper in plain English. Copilot Skill Builder asks at most
+You describe the helper you want with any prompt. Copilot Skill Builder asks at most
 three simple questions, shows a short plan, then creates a complete skill folder
 with:
 
@@ -71,6 +70,10 @@ prompt structure." They start with, "I wish Copilot could help me with this
 workflow."
 
 Copilot Skill Builder bridges that gap.
+
+## Built by Dark Factory
+
+Copilot Skill Builder was built with [Dark Factory](https://github.com/DUBSOpenHub/dark-factory), the sealed-envelope Copilot CLI build system. Dark Factory turned the product idea into a tested skill repo using its factory line: spec, architecture, hidden quality checks, implementation, validation, and hardening.
 
 ## What it does not do
 
